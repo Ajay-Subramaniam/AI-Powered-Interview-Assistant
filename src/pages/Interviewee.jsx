@@ -163,16 +163,35 @@ const Interviewee = () => {
         await addMessage('system', 'Unable to extract few fields.')
         await incrementSubSection(userIdRef.current)
       }
-      else if (!profileRef.current.name && subSection === 0) {
-        await addMessage('system', 'Please enter your name')
+
+      if(subSection === 0){
+        if (!profileRef.current.name) {
+          await addMessage('system', 'Please enter your name')
+        }
+        else{
+          await incrementSubSection(userIdRef.current) 
+        }
       }
-      else if (!profileRef.current.email && subSection === 1) {
-        await addMessage('system', 'Please enter your email')
+
+      if(subSection === 1){
+        if (!profileRef.current.email && subSection === 1) {
+          await addMessage('system', 'Please enter your email')
+        }
+        else{
+          await incrementSubSection(userIdRef.current) 
+        }
       }
-      else if (!profileRef.current.phone && subSection === 2) {
-        await addMessage('system', 'Please enter your phone number')
+      
+      if(subSection === 2){
+        if (!profileRef.current.phone && subSection === 2) {
+          await addMessage('system', 'Please enter your phone number')
+        }
+        else{
+          await incrementSubSection(userIdRef.current) 
+        }
       }
-      else if (subSection === 3) {
+
+      if (subSection === 3) {
         await incrementSection(userIdRef.current)
       }
     }
