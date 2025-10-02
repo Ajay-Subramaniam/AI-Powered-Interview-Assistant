@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import ResumeUploadDialog from '../components/ResumeUploadDialog'
-import { incrementSectionInDb, getAllOngoingInterviews, getInterviewee, incrementSubSectionInDb, updateProfileInDb, updateTimeSpentInDb, updateMessageInDb, clearOngoingInterview, updateDurationInDb, updateEvaluationResultInDb } from '../utils/indexdb'
+import { incrementSectionInDb, getAllOngoingInterviews, getInterviewee, incrementSubSectionInDb, updateProfileInDb, updateTimeSpentInDb, updateMessageInDb, clearOngoingInterview, updateDurationInDb, updateEvaluationResultInDb, updateCurrentUserResponseInDb } from '../utils/indexdb'
 import { useLoader } from '../components/LoaderContext'
 import {
   Box,
@@ -48,6 +48,7 @@ const Interviewee = () => {
           setTimeSpent(interviewee.timeSpent)
           durationRef.current = interviewee.duration
           setMessages(interviewee.messages)
+          setUserResponse(interviewee.currentUserResponse)
           preventOneTimeExecutionRef.current = true
         }
       }
@@ -132,7 +133,7 @@ const Interviewee = () => {
     await addMessage('user', userResponse)
     if (section === 1) await updateProfile()
 
-    setUserResponse('')
+    updateUserResponse('')
     setTimeSpent(0)
     await updateTimeSpentInDb(userIdRef.current, 0)
 
@@ -142,6 +143,11 @@ const Interviewee = () => {
     }
 
     await incrementSubSection(userIdRef.current)
+  }
+
+  async function updateUserResponse(response){
+    setUserResponse(response)
+    await updateCurrentUserResponseInDb(userIdRef.current, response)
   }
 
   useEffect(() => {
@@ -322,7 +328,7 @@ const Interviewee = () => {
                 placeholder="Type your answer..."
                 variant="outlined"
                 size="small"
-                onChange={(e) => setUserResponse(e.target.value)}
+                onChange={(e)=>updateUserResponse(e.target.value)}
                 onKeyDown={handleKeyDown}
                 disabled={disableInputFields}
               />

@@ -24,6 +24,7 @@
 //     timeSpent,
 //     duration,
 //     addedAt,
+//     currentUserResponse,
 //   }
 
 //   objectStore : onGoing
@@ -87,6 +88,21 @@ export async function updateTimeSpentInDb(id,timeSpent) {
     await db.put("interviewees", interviewee);
   } catch (err) {
     console.error("Error in incrementing time spent:", err);
+    window.location.reload()
+  }
+}
+
+export async function updateCurrentUserResponseInDb(id,currentUserResponse) {
+  try {
+    const db = await initDB();
+    let interviewee =  await db.get("interviewees", id);
+    if (!interviewee) {
+      throw new Error("Interviewee not found");
+    }
+    interviewee.currentUserResponse = currentUserResponse
+    await db.put("interviewees", interviewee);
+  } catch (err) {
+    console.error("Error in updating current user response:", err);
     window.location.reload()
   }
 }
