@@ -11,13 +11,14 @@ import { getInterviewee } from "../utils/indexdb";
 import { useLoader } from "../components/LoaderContext";
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ChatHistoryDialog from '../components/ChatHistoryDialog';
 
 const CandidateProfile = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const [candidate, setCandidate] = useState(null);
     const { closeLoader, openLoader } = useLoader()
-
+    const [openChat, setOpenChat] = useState(false)
     useEffect(() => {
         async function fetchCandidate() {
             const data = await getInterviewee(id);
@@ -126,17 +127,23 @@ const CandidateProfile = () => {
                 </Paper>
 
                 <Paper sx={{ p: 1 }}>
-                    <Button
-                        fullWidth
-                        variant="contained"
-                        onClick={() => {
-                            const blob = new Blob([candidate.resume], { type: "application/pdf" });
-                            const url = URL.createObjectURL(blob);
-                            window.open(url, "_blank");
-                        }}
-                    >
-                        View Resume
-                    </Button>
+                    <Box display='flex' gap={1}>
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            onClick={() => {
+                                const blob = new Blob([candidate.resume], { type: "application/pdf" });
+                                const url = URL.createObjectURL(blob);
+                                window.open(url, "_blank");
+                            }}
+                        >
+                            Resume
+                        </Button>
+                        <Button fullWidth variant="contained" onClick={() => setOpenChat(true)}>
+                            Chat History
+                        </Button>
+                    </Box>
+
                 </Paper>
 
                 <Paper sx={{ p: 2, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
@@ -148,6 +155,11 @@ const CandidateProfile = () => {
                     </Box>
                 </Paper>
             </Box>
+            <ChatHistoryDialog
+                open={openChat}
+                onClose={() => setOpenChat(false)}
+                messages={candidate.messages}
+            />
         </Box>
 
     );
