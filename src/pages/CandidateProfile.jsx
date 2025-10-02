@@ -75,7 +75,7 @@ const CandidateProfile = () => {
                         {candidate.que_ans_score?.map((q) => (
                             <Box key={q.id} mb={2}>
                                 <Typography fontWeight="bold">
-                                    {q.difficulty.toUpperCase()} - Score: {q.obtained_score}/{q.maximum_score}
+                                    {q.difficulty.toUpperCase()} - Score: {q.obtained_score}/{q.maximum_score} - Time spent : {q.timeSpent}s/{q.Duration}s
                                 </Typography>
                                 <Typography variant="body1">{q.id}. {q.question}</Typography>
                                 <Typography variant="body2" color="text.secondary">
