@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import ResumeUploadDialog from '../components/ResumeUploadDialog'
-import { incrementSectionInDb, getAllOngoingInterviews, getInterviewee, incrementSubSectionInDb, updateProfileInDb, updateTimeSpentInDb, updateMessageInDb, clearOngoingInterview, updateDurationInDb, updateEvaluationResultInDb } from '../utils/indexDb'
+import { incrementSectionInDb, getAllOngoingInterviews, getInterviewee, incrementSubSectionInDb, updateProfileInDb, updateTimeSpentInDb, updateMessageInDb, clearOngoingInterview, updateDurationInDb, updateEvaluationResultInDb } from '../utils/indexdb'
 import { useLoader } from '../components/LoaderContext'
 import {
   Box,

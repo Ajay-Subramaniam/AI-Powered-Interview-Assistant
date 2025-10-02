@@ -10,10 +10,9 @@ import {
 } from "@mui/material";
 import { v4 as uuidv4 } from 'uuid';
 import { infoExtractionAndQuestionGeneration } from "../utils/ai";
-import { addInterviewee, setOngoingInterview } from "../utils/indexDb";
+import { addInterviewee, setOngoingInterview } from "../utils/indexdb";
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { useLoader } from '../components/LoaderContext'
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';

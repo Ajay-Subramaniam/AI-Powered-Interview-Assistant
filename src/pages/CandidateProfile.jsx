@@ -7,7 +7,7 @@ import {
     Divider,
     Button,
 } from "@mui/material";
-import { getInterviewee } from "../utils/indexDb";
+import { getInterviewee } from "../utils/indexdb";
 import { useLoader } from "../components/LoaderContext";
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';

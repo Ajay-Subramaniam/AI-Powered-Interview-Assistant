@@ -16,7 +16,7 @@ import {
   TableSortLabel,
 } from "@mui/material";
 import dayjs from "dayjs";
-import { getAllInterviewees } from "../utils/indexDb";
+import { getAllInterviewees } from "../utils/indexdb";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const CandidateList = () => {
