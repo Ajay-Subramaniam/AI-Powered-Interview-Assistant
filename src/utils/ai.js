@@ -11,6 +11,7 @@ export async function infoExtractionAndQuestionGeneration(file) {
     return;
   }
 
+  
   try {
     const uploadedFile = await ai.files.upload({
       file: file,
@@ -110,7 +111,7 @@ export async function infoExtractionAndQuestionGeneration(file) {
     return JSON.parse(jsonText)
   } catch (error) {
     console.error('Error during file upload or API request:', error);
-    window.location.reload();
+    throw Error(error)
   }
 }
 
