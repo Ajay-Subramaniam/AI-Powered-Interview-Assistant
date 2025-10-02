@@ -11,7 +11,7 @@ export async function infoExtractionAndQuestionGeneration(file) {
     return;
   }
 
-  
+
   try {
     const uploadedFile = await ai.files.upload({
       file: file,
@@ -19,7 +19,18 @@ export async function infoExtractionAndQuestionGeneration(file) {
     });
 
 
-    const prompt = `Parse the attached resume file and extract the following fields: name, email, and phone number. If any of these fields are missing, assign them a value of null.
+    const prompt = `Parse the attached resume file and extract the following fields: name, email, and phone number. 
+
+    **Important extraction rules:**
+    - Only extract a field if it is **explicitly written in the resume text itself**.
+    - Do NOT infer or guess the name, email, or phone number from:
+      - LinkedIn URLs
+      - GitHub usernames
+      - File names
+      - Email handles
+      - Image names
+      - Any indirect reference or social media profile
+    - If any field is **not explicitly mentioned** in the resume content, assign it a value of null.
 
     Next, generate six interview questions, 3 React and 3 Node.js, following these rules:
     
@@ -47,7 +58,7 @@ export async function infoExtractionAndQuestionGeneration(file) {
     2. At index 1: an array of 6 question objects as described above (in the order: easy React, easy Node, medium React, medium Node, hard React, hard Node)
     
     Do not return any text, explanation, or formatting outside of the array. The output must only be the raw JSON array, with no leading or trailing text or spacing.I need to input this response in JSON.parse() so dont include the backticks & json word in teh front and the backticks at the back of that array`;
-    
+
     const responseSchema = {
       type: Type.ARRAY,
       items: {
@@ -85,29 +96,29 @@ export async function infoExtractionAndQuestionGeneration(file) {
     };
 
     const filePart = {
-        fileData: {
-          mimeType: uploadedFile.mimeType,
-          fileUri: uploadedFile.uri,
-        },
-      };
-      
-      const textPart = {
-        text: prompt,
-      };
-      
-      const contents = {
-        parts: [ filePart, textPart ]
-      };
-      
-      const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
-        contents: contents,
-        config: {
-          responseMimeType: 'application/json',
-          responseSchema: responseSchema,
-        },
-      });
-    const jsonText = response.text.replace('```json','').replace('```','')
+      fileData: {
+        mimeType: uploadedFile.mimeType,
+        fileUri: uploadedFile.uri,
+      },
+    };
+
+    const textPart = {
+      text: prompt,
+    };
+
+    const contents = {
+      parts: [filePart, textPart]
+    };
+
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: contents,
+      config: {
+        responseMimeType: 'application/json',
+        responseSchema: responseSchema,
+      },
+    });
+    const jsonText = response.text.replace('```json', '').replace('```', '')
     return JSON.parse(jsonText)
   } catch (error) {
     console.error('Error during file upload or API request:', error);
