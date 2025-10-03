@@ -3,7 +3,7 @@
 CRISP-AI is an AI-powered interview assistant built with **React** . It allows candidates to upload resumes, generates dynamic AI-driven interview questions, evaluates answers, and provides interviewers with a dashboard of candidates, detailed reports, and AI-generated summaries. A “Welcome Back” modal ensures that users can continue seamlessly from where they left off, using local persistence with **IndexedDB**.
 
  - Live link : [https://ai-powered-interview-assistant-9s19.onrender.com](https://ai-powered-interview-assistant-9s19.onrender.com) 
-
+ - Demo video : [https://www.youtube.com/watch?v=AYJgRw_UHWM](https://www.youtube.com/watch?v=AYJgRw_UHWM)
 ---
 
 ## ✨ Features
