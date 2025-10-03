@@ -133,7 +133,7 @@ const Interviewee = () => {
     await addMessage('user', userResponse)
     if (section === 1) await updateProfile()
 
-    updateUserResponse('')
+    await updateUserResponse('')
     setTimeSpent(0)
     await updateTimeSpentInDb(userIdRef.current, 0)
 
